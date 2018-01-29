@@ -1,0 +1,20 @@
+App {
+    height: 100vh;
+    width: 100vw;
+    border: 2px solid orange;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+
+    background-color: #0068B3;
+    color: #fff;
+}
+
+.height-full {
+    height: 100%;
+}
