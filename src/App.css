@@ -18,3 +18,9 @@ footer {
 .height-full {
     height: 100%;
 }
+
+.avatar {
+    width: 150px;
+    border-radius: 50%;
+    margin: auto;
+}

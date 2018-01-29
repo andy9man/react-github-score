@@ -65,7 +65,7 @@ class App extends Component {
         console.log("Getting GitHub Information...")
         const {data} = response;
         console.log(data);
-        this.setState( {result: {login: data.login, name: data.name, avatar: data.avatar_url, score: (data.public_repos + data.followers)} });
+        this.setState( {result: {login: data.login, name: data.name, avatar: data.avatar_url, score: (data.public_repos + data.followers), memberSince: data.created_at.split('-')[0]} });
       })
       .catch( error => {
         if (error.response) {
@@ -100,7 +100,7 @@ class App extends Component {
         <div className="row">
 
           {/* -- Search for GitHub User -- */}
-          <div className="xlarge-6 large-6 medium-6 small-12 columns">
+          <div className="xlarge-5 large-6 medium-6 small-12 columns">
 
             <form onSubmit={this.handleSubmit}>
 
@@ -132,21 +132,62 @@ class App extends Component {
           </div>
 
           {/* -- GitHub Score Results -- */}
-          <div className="xlarge-6 large-6 medium-6 small-12 columns" style={ this.state.error.trim() === '' && this.state.result !== '' ? {visibility: "visible"} : {visibility: "hidden"} }>
+          <div className="xlarge-7 large-6 medium-6 small-12 end columns" style={ this.state.error.trim() === '' && this.state.result !== '' ? {visibility: "visible"} : {visibility: "hidden"} }>
             <div className="card">
-              <h3><b>Your Score</b></h3>
-              <h1 className="text-center">{this.state.result.score}</h1>
-              <h3 className="text-center" style={ {color: gitHubScoreMessage(this.state.result.score).color} }>{gitHubScoreMessage(this.state.result.score).message}</h3>
+
+              <div className="row">
+                <div className="xlarge-6 large-6 medium-6 small-12 columns">
+                  <h3><b>Your Score</b></h3>
+                  <h1 className="text-center">{this.state.result.score}</h1>
+                  <h3 className="text-center" style={ {color: gitHubScoreMessage(this.state.result.score).color} }>{gitHubScoreMessage(this.state.result.score).message}</h3>
+                </div>
+                <div className="xlarge-6 large-6 medium-6 small-12 columns">
+                  <img
+                    src={this.state.result.avatar}
+                    alt={`${this.state.result.name} | ${this.state.result.login}'s Avatar`}
+                    className="avatar"
+                    style={ {border: `3px solid ${gitHubScoreMessage(this.state.result.score).color}`}}
+                  />
+                </div>
+              </div>
+
+              <div className="row"><hr /></div>
+
+              <div className="row collapse">
+                <div className="small-4 columns">
+                  <p><b>Name:</b></p>
+                </div>
+                <div className="small-8 columns">
+                  <p>{this.state.result.name}</p>
+                </div>
+              </div>
+              <div className="row collapse">
+                <div className="small-4 columns">
+                  <p><b>Login:</b></p>
+                </div>
+                <div className="small-8 columns">
+                  <p>{this.state.result.login}</p>
+                </div>
+              </div>
+              <div className="row collapse">
+                <div className="small-4 columns">
+                  <p><b>Member Since:</b></p>
+                </div>
+                <div className="small-8 columns">
+                  <p>{this.state.result.memberSince}</p>
+                </div>
+              </div>
+
             </div>
           </div>
 
         </div>
 
         <footer className="row padding-small">
-          <div className="small-4 columns valign-middle">
+          <div className="small-2 columns valign-middle">
             <p>Advice from <b>Ron Swanson</b></p>
           </div>
-          <div className="small-8 columns text-center valign-middle inline-block height-full">
+          <div className="small-10 columns text-center valign-middle inline-block height-full">
             <p><i><b>"</b>{this.state.humorQuote}<b>"</b></i></p>
           </div>
         </footer>
